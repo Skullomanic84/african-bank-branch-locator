@@ -1,26 +1,94 @@
+@import "mapbox-gl/dist/mapbox-gl.css";
+
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-montserrat);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.mapboxgl-map {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.mapboxgl-canvas-container,
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-ctrl-top-right,
+.mapboxgl-ctrl-top-left {
+  z-index: 20;
+}
+
+.mapboxgl-ctrl-group {
+  overflow: hidden;
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(17, 39, 104, 0.12) !important;
+}
+
+.mapboxgl-ctrl-group button {
+  width: 36px;
+  height: 36px;
+}
+
+.mapboxgl-popup-content {
+  border-radius: 8px !important;
+  padding: 12px !important;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: #ffffff !important;
+}
+
+.store-popup .mapboxgl-popup-close-button {
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background-color: #5dc300;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.store-popup .mapboxgl-popup-close-button:hover {
+  background-color: #4eaa00;
+}
+
+.store-popup .mapboxgl-popup-close-button:focus-visible {
+  outline: 2px solid #112768;
+  outline-offset: 1px;
+}
+
+.custom-store-marker {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ffffff;
+  border-radius: 9999px;
+  background-color: #5dc300;
+  box-shadow: 0 0 0 2px rgba(17, 39, 104, 0.15);
+  cursor: pointer;
+}
+
+.lucide-store-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
