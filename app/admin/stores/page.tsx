@@ -123,7 +123,7 @@ export default function AdminStoresPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-[18px] font-bold text-[#112768]">
-              Admin · Stores
+              Admin/Stores
             </h1>
             <p className="mt-1 text-[14px] font-light text-[#112768]">
               Manage branches shown on the store locator.

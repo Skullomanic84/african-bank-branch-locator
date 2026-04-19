@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -19,11 +20,17 @@ type StoreFiltersProps = {
   initialProvince: string;
   initialCity: string;
   initialArea: string;
+  initialAtmOnly: boolean;
   allStores: Store[];
   provinceOptions: string[];
-  onSearch: (values: { province: string; city: string; area: string }) => void;
+  onSearch: (values: {
+    province: string;
+    city: string;
+    area: string;
+    atmOnly: boolean;
+  }) => void;
   onClear: () => void;
-  onUseMyLocation: () => void;
+  onUseMyLocation: (atmOnly: boolean) => void;
   isLocating?: boolean;
   locationMessage?: string | null;
 };
@@ -35,6 +42,7 @@ export default function StoreFilters({
   initialProvince,
   initialCity,
   initialArea,
+  initialAtmOnly,
   allStores,
   provinceOptions,
   onSearch,
@@ -46,6 +54,7 @@ export default function StoreFilters({
   const [province, setProvince] = useState(initialProvince);
   const [city, setCity] = useState(initialCity);
   const [area, setArea] = useState(initialArea);
+  const [atmOnly, setAtmOnly] = useState(initialAtmOnly);
 
   const cityOptions = useMemo(() => {
     const filteredCities = province
@@ -61,7 +70,7 @@ export default function StoreFilters({
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSearch({ province, city, area });
+        onSearch({ province, city, area, atmOnly });
       }}
       className="space-y-3 p-4"
     >
@@ -73,7 +82,7 @@ export default function StoreFilters({
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={onUseMyLocation}
+            onClick={() => onUseMyLocation(atmOnly)}
             disabled={isLocating}
             className="cursor-pointer text-[12px] font-medium text-[#112768] disabled:cursor-not-allowed disabled:opacity-60"
           >
@@ -86,6 +95,7 @@ export default function StoreFilters({
               setProvince("");
               setCity("");
               setArea("");
+              setAtmOnly(false);
               onClear();
             }}
             className="cursor-pointer text-[12px] font-medium text-[#b30000]"
@@ -148,6 +158,24 @@ export default function StoreFilters({
             </SelectContent>
           </Select>
         </div>
+      </div>
+
+      <div className="flex items-center justify-between rounded-full bg-[#efefef] px-3 py-2">
+        <p className="text-[13px] font-medium text-[#112768]">
+          Branches with ATM
+        </p>
+        <Switch
+          checked={atmOnly}
+          onCheckedChange={(checked) => {
+            setAtmOnly(checked);
+            onSearch({
+              province,
+              city,
+              area,
+              atmOnly: checked,
+            });
+          }}
+        />
       </div>
 
       <div className="grid grid-cols-10 gap-3">

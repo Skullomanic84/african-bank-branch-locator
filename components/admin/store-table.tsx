@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 
@@ -21,11 +22,28 @@ type StoreTableProps = {
   onDelete: (id: string) => void;
 };
 
+const PAGE_SIZE = 13;
+
 export default function StoreTable({
   stores,
   isLoading = false,
   onDelete,
 }: StoreTableProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.max(1, Math.ceil(stores.length / PAGE_SIZE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+
+  const paginatedStores = useMemo(() => {
+    const start = (safeCurrentPage - 1) * PAGE_SIZE;
+    return stores.slice(start, start + PAGE_SIZE);
+  }, [stores, safeCurrentPage]);
+
+  const startIndex = stores.length ? (safeCurrentPage - 1) * PAGE_SIZE + 1 : 0;
+  const endIndex = stores.length
+    ? Math.min(safeCurrentPage * PAGE_SIZE, stores.length)
+    : 0;
+
   if (isLoading) {
     return (
       <div className="rounded-md bg-[#efefef] p-4 text-[14px] font-light text-[#112768]">
@@ -66,7 +84,7 @@ export default function StoreTable({
         </TableHeader>
 
         <TableBody>
-          {stores.map((store) => {
+          {paginatedStores.map((store) => {
             const storeId = String(store._id ?? "");
 
             return (
@@ -136,6 +154,42 @@ export default function StoreTable({
           })}
         </TableBody>
       </Table>
+
+      <div className="flex items-center justify-between border-t border-[#d8d8d8] bg-white px-4 py-3 text-[13px] text-[#112768]">
+        <p className="font-light">
+          Showing {startIndex}-{endIndex} of {stores.length}
+        </p>
+
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+            disabled={safeCurrentPage === 1}
+            className="border-[#b7b7b7] text-[#112768]"
+          >
+            Prev
+          </Button>
+
+          <span className="min-w-16 text-center font-medium">
+            {safeCurrentPage} / {totalPages}
+          </span>
+
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+            }
+            disabled={safeCurrentPage === totalPages}
+            className="border-[#b7b7b7] text-[#112768]"
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
