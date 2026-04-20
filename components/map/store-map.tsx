@@ -36,39 +36,41 @@ function isWithinSouthAfricaBounds(longitude: number, latitude: number) {
 }
 
 function toFeatureCollection(stores: Store[]): GeoJSON.FeatureCollection<GeoJSON.Point> {
+  const features: GeoJSON.Feature<GeoJSON.Point>[] = stores.flatMap((store) => {
+    const [longitude, latitude] = store.location.coordinates;
+
+    if (
+      typeof longitude !== "number" ||
+      typeof latitude !== "number" ||
+      Number.isNaN(longitude) ||
+      Number.isNaN(latitude) ||
+      !isWithinSouthAfricaBounds(longitude, latitude)
+    ) {
+      return [];
+    }
+
+    return [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [longitude, latitude],
+        },
+        properties: {
+          name: store.name,
+          slug: store.slug,
+          addressLine1: store.addressLine1,
+          suburb: store.suburb,
+          city: store.city,
+          province: store.province,
+        },
+      },
+    ];
+  });
+
   return {
     type: "FeatureCollection",
-    features: stores
-      .map((store) => {
-        const [longitude, latitude] = store.location.coordinates;
-
-        if (
-          typeof longitude !== "number" ||
-          typeof latitude !== "number" ||
-          Number.isNaN(longitude) ||
-          Number.isNaN(latitude) ||
-          !isWithinSouthAfricaBounds(longitude, latitude)
-        ) {
-          return null;
-        }
-
-        return {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [longitude, latitude],
-          },
-          properties: {
-            name: store.name,
-            slug: store.slug,
-            addressLine1: store.addressLine1,
-            suburb: store.suburb,
-            city: store.city,
-            province: store.province,
-          },
-        } satisfies GeoJSON.Feature<GeoJSON.Point>;
-      })
-      .filter((feature): feature is GeoJSON.Feature<GeoJSON.Point> => feature !== null),
+    features,
   };
 }
 
@@ -284,7 +286,7 @@ export default function StoreMap({ stores, isLoading = false }: StoreMapProps) {
           const [longitude, latitude] = clusterFeature.geometry.coordinates;
           map.easeTo({
             center: [longitude, latitude],
-            zoom,
+            zoom: typeof zoom === "number" ? zoom : map.getZoom(),
             duration: 600,
           });
         });
