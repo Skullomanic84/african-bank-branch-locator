@@ -14,6 +14,7 @@ export type Store = {
   postalCode?: string;
   phone?: string;
   hasATM: boolean;
+  hasCAM?: boolean;
   isActive: boolean;
   services: string[];
   location: StoreLocation;
@@ -31,6 +32,7 @@ export type StoreFormValues = {
   postalCode?: string;
   phone?: string;
   hasATM: boolean;
+  hasCAM?: boolean;
   isActive: boolean;
   services: string[];
   longitude: number;
@@ -43,6 +45,7 @@ export type StoreFilters = {
   town?: string;
   suburb?: string;
   atm?: string;
+  cam?: string;
   lat?: string;
   lng?: string;
   radius?: string;

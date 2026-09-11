@@ -123,6 +123,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
     const latitude = Number(body.latitude);
 
     const hasATM = Boolean(body.hasATM);
+    const hasCAM = Boolean(body.hasCAM);
     const isActive =
       body.isActive !== undefined ? Boolean(body.isActive) : true;
 
@@ -178,6 +179,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
           postalCode,
           phone,
           hasATM,
+          hasCAM,
           isActive,
           services,
           location: {

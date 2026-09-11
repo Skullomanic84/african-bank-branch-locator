@@ -24,6 +24,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0850",
     phone: "0153077024",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -41,6 +42,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0920",
     phone: "0155160049",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -58,6 +60,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1389",
     phone: "0157805000",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -76,6 +79,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0510",
     phone: "0147189900",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -93,6 +97,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1050",
     phone: "0132433624",
     hasATM: true,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "ATM", "Wi-Fi"],
     location: {
@@ -111,6 +116,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1560",
     phone: "0113651280",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -128,6 +134,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1450",
     phone: "0117240060",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -145,6 +152,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "2350",
     phone: "0178112033",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -163,6 +171,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "2000",
     phone: "0118323535",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -180,6 +189,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "2017",
     phone: "0114034797",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -197,6 +207,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "2001",
     phone: "0112212700",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -215,6 +226,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "2001",
     phone: "0112212780",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -232,6 +244,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0001",
     phone: "0123285740",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -250,6 +263,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0002",
     phone: "0123229752",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -267,6 +281,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1120",
     phone: "0132359900",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -284,6 +299,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1300",
     phone: "0137120900",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -301,6 +317,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1150",
     phone: "0132318044",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -319,6 +336,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0118",
     phone: "0125496097",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -336,6 +354,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "0400",
     phone: "0127271338",
     hasATM: true,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "ATM", "Wi-Fi"],
     location: {
@@ -353,6 +372,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "4000",
     phone: "0313054209",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -370,6 +390,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "4000",
     phone: "0319123192",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -387,6 +408,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "4700",
     phone: "0397978030",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -405,6 +427,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "1864",
     phone: "0119332710",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -422,6 +445,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "3815",
     phone: "0354741097",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -440,6 +464,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "3935",
     phone: "0355501322",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -457,6 +482,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "3950",
     phone: "0358313407",
     hasATM: true,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "ATM", "Wi-Fi"],
     location: {
@@ -474,6 +500,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "3900",
     phone: "0357890534",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -492,6 +519,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "3170",
     phone: "0344139200",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -510,6 +538,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "4490",
     phone: "0324547600",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {
@@ -527,6 +556,7 @@ export const storesSeed: Omit<Store, "_id" | "createdAt" | "updatedAt">[] = [
     postalCode: "4449",
     phone: "0325518400",
     hasATM: false,
+    hasCAM: true,
     isActive: true,
     services: ["Branch Services", "Wi-Fi"],
     location: {

@@ -85,6 +85,7 @@ export async function POST(request: NextRequest) {
     const latitude = Number(body.latitude);
 
     const hasATM = Boolean(body.hasATM);
+    const hasCAM = Boolean(body.hasCAM);
     const isActive =
       body.isActive !== undefined ? Boolean(body.isActive) : true;
 
@@ -122,6 +123,7 @@ export async function POST(request: NextRequest) {
       postalCode,
       phone,
       hasATM,
+      hasCAM,
       isActive,
       services,
       location: {

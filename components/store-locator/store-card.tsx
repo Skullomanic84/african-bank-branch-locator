@@ -35,12 +35,19 @@ export default function StoreCard({ store }: StoreCardProps) {
             </p>
           </div>
 
-          {store.hasATM ? (
-            <Badge className="flex items-center gap-1 rounded-full border-0 bg-white px-3 py-1 text-[#5dc300] shadow-none hover:bg-white">
-              <CreditCard className="h-4 w-4" />
-              ATM
-            </Badge>
-          ) : null}
+          <div className="flex flex-wrap justify-end gap-2">
+            {store.hasATM ? (
+              <Badge className="flex items-center gap-1 rounded-full border-0 bg-white px-3 py-1 text-[#5dc300] shadow-none hover:bg-white">
+                <CreditCard className="h-4 w-4" />
+                ATM
+              </Badge>
+            ) : null}
+            {store.hasCAM ? (
+              <Badge className="flex items-center gap-1 rounded-full border-0 bg-white px-3 py-1 text-[#112768] shadow-none hover:bg-white">
+                <span className="text-[11px] font-black">CAM</span>
+              </Badge>
+            ) : null}
+          </div>
         </div>
       </CardHeader>
 

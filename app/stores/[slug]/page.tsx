@@ -21,6 +21,7 @@ type StoreDetails = {
   province: string;
   phone?: string;
   hasATM: boolean;
+  hasCAM?: boolean;
   services: string[];
   location: {
     coordinates: [number, number];
@@ -62,12 +63,19 @@ export default async function StoreDetailsPage({ params }: StoreRouteProps) {
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
               <CardTitle className="text-2xl font-black">{store.name}</CardTitle>
-              {store.hasATM ? (
-                <Badge className="flex items-center gap-1 rounded-full border-0 bg-white px-3 py-1 text-[#5dc300] hover:bg-white">
-                  <CreditCard className="h-4 w-4" />
-                  ATM
-                </Badge>
-              ) : null}
+              <div className="flex flex-wrap justify-end gap-2">
+                {store.hasATM ? (
+                  <Badge className="flex items-center gap-1 rounded-full border-0 bg-white px-3 py-1 text-[#5dc300] hover:bg-white">
+                    <CreditCard className="h-4 w-4" />
+                    ATM
+                  </Badge>
+                ) : null}
+                {store.hasCAM ? (
+                  <Badge className="flex items-center gap-1 rounded-full border-0 bg-white px-3 py-1 text-[#112768] hover:bg-white">
+                    <span className="text-[11px] font-black">CAM</span>
+                  </Badge>
+                ) : null}
+              </div>
             </div>
             <p className="mt-2 text-sm font-medium">
               {store.suburb}, {store.city}, {store.province}

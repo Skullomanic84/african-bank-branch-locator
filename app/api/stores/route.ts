@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
     const town = searchParams.get("town")?.trim();
     const suburb = searchParams.get("suburb")?.trim();
     const atm = parseBoolean(searchParams.get("atm"));
+    const cam = parseBoolean(searchParams.get("cam"));
 
     const latParam = searchParams.get("lat");
     const lngParam = searchParams.get("lng");
@@ -70,6 +71,10 @@ export async function GET(request: NextRequest) {
 
     if (typeof atm === "boolean") {
       query.hasATM = atm;
+    }
+
+    if (typeof cam === "boolean") {
+      query.hasCAM = cam;
     }
 
     let sort: Record<string, 1 | -1> = { name: 1 };

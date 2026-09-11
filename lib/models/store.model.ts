@@ -54,6 +54,10 @@ const StoreSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    hasCAM: {
+      type: Boolean,
+      default: false,
+    },
     isActive: {
       type: Boolean,
       default: true,
@@ -88,6 +92,7 @@ const StoreSchema = new Schema(
 
 StoreSchema.index({ province: 1, city: 1, suburb: 1 });
 StoreSchema.index({ hasATM: 1, isActive: 1 });
+StoreSchema.index({ hasCAM: 1, isActive: 1 });
 StoreSchema.index({ location: "2dsphere" });
 
 export type StoreDocument = InferSchemaType<typeof StoreSchema>;

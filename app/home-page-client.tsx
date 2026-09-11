@@ -25,6 +25,7 @@ export default function HomePageClient() {
   const currentCity = searchParams.get("city") ?? "";
   const currentTown = searchParams.get("town") ?? "";
   const currentAtmOnly = searchParams.get("atm") === "true";
+  const currentCamOnly = searchParams.get("cam") === "true";
   const currentLat = searchParams.get("lat");
   const currentLng = searchParams.get("lng");
   const isNearMeMode = Boolean(currentLat && currentLng);
@@ -109,11 +110,13 @@ export default function HomePageClient() {
     city,
     area,
     atmOnly,
+    camOnly,
   }: {
     province: string;
     city: string;
     area: string;
     atmOnly: boolean;
+    camOnly: boolean;
   }) => {
     setLocationMessage(null);
     const params = new URLSearchParams();
@@ -134,6 +137,10 @@ export default function HomePageClient() {
       params.set("atm", "true");
     }
 
+    if (camOnly) {
+      params.set("cam", "true");
+    }
+
     const nextQuery = params.toString();
     router.replace(nextQuery ? `/?${nextQuery}` : "/");
   };
@@ -143,7 +150,10 @@ export default function HomePageClient() {
     router.replace("/");
   };
 
-  const useMyLocation = (atmOnly = currentAtmOnly) => {
+  const useMyLocation = (
+    atmOnly = currentAtmOnly,
+    camOnly = currentCamOnly,
+  ) => {
     setLocationMessage(null);
 
     if (!("geolocation" in navigator)) {
@@ -161,6 +171,9 @@ export default function HomePageClient() {
         params.set("radius", "50000");
         if (atmOnly) {
           params.set("atm", "true");
+        }
+        if (camOnly) {
+          params.set("cam", "true");
         }
 
         setLocationMessage("Showing branches near your current location.");
@@ -214,11 +227,12 @@ export default function HomePageClient() {
         <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[420px_minmax(0,1fr)] lg:items-stretch">
           <div className="flex min-h-0 flex-col gap-4">
             <StoreFilters
-              key={`${currentProvince}|${currentCity}|${currentTown}|${currentAtmOnly ? "atm" : "all"}`}
+              key={`${currentProvince}|${currentCity}|${currentTown}|${currentAtmOnly ? "atm" : "all"}|${currentCamOnly ? "cam" : "all"}`}
               initialProvince={currentProvince}
               initialCity={currentCity}
               initialArea={currentTown}
               initialAtmOnly={currentAtmOnly}
+              initialCamOnly={currentCamOnly}
               allStores={allStores}
               provinceOptions={provinceOptions}
               onSearch={applyFilters}

@@ -78,6 +78,7 @@ export default function StoreTable({
             <TableHead className="text-[#112768]">Province</TableHead>
             <TableHead className="text-[#112768]">City</TableHead>
             <TableHead className="text-[#112768]">ATM</TableHead>
+            <TableHead className="text-[#112768]">CAM</TableHead>
             <TableHead className="text-[#112768]">Active</TableHead>
             <TableHead className="text-right text-[#112768]">Actions</TableHead>
           </TableRow>
@@ -110,6 +111,18 @@ export default function StoreTable({
                     }
                   >
                     {store.hasATM ? "Yes" : "No"}
+                  </Badge>
+                </TableCell>
+
+                <TableCell>
+                  <Badge
+                    className={
+                      store.hasCAM
+                        ? "bg-[#5dc300] text-white"
+                        : "bg-slate-500 text-white"
+                    }
+                  >
+                    {store.hasCAM ? "Yes" : "No"}
                   </Badge>
                 </TableCell>
 

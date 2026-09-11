@@ -28,6 +28,7 @@ type FormState = {
   latitude: string;
   servicesText: string;
   hasATM: boolean;
+  hasCAM: boolean;
   isActive: boolean;
 };
 
@@ -44,6 +45,7 @@ function buildInitialState(store?: Store | null): FormState {
     latitude: String(store?.location?.coordinates?.[1] ?? ""),
     servicesText: store?.services?.join(", ") ?? "",
     hasATM: store?.hasATM ?? false,
+    hasCAM: store?.hasCAM ?? false,
     isActive: store?.isActive ?? true,
   };
 }
@@ -88,6 +90,7 @@ export default function StoreForm({
       longitude: Number(form.longitude),
       latitude: Number(form.latitude),
       hasATM: form.hasATM,
+      hasCAM: form.hasCAM,
       isActive: form.isActive,
       services: form.servicesText
         .split(/[\n,]/)
@@ -235,6 +238,23 @@ export default function StoreForm({
               <Switch
                 checked={form.hasATM}
                 onCheckedChange={(checked) => handleChange("hasATM", checked)}
+                className="data-[state=checked]:bg-[#5dc300] data-[state=unchecked]:bg-[#112768]/30"
+              />
+            </div>
+
+            <div className="flex items-center justify-between rounded-md bg-[#efefef] px-4 py-3">
+              <div>
+                <p className="text-[14px] font-semibold text-[#112768]">
+                  CAM services available
+                </p>
+                <p className="text-[12px] font-light text-[#112768]">
+                  Toggle if this branch offers CAM services
+                </p>
+              </div>
+
+              <Switch
+                checked={form.hasCAM}
+                onCheckedChange={(checked) => handleChange("hasCAM", checked)}
                 className="data-[state=checked]:bg-[#5dc300] data-[state=unchecked]:bg-[#112768]/30"
               />
             </div>

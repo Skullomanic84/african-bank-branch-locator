@@ -21,6 +21,7 @@ type StoreFiltersProps = {
   initialCity: string;
   initialArea: string;
   initialAtmOnly: boolean;
+  initialCamOnly: boolean;
   allStores: Store[];
   provinceOptions: string[];
   onSearch: (values: {
@@ -28,9 +29,10 @@ type StoreFiltersProps = {
     city: string;
     area: string;
     atmOnly: boolean;
+    camOnly: boolean;
   }) => void;
   onClear: () => void;
-  onUseMyLocation: (atmOnly: boolean) => void;
+  onUseMyLocation: (atmOnly: boolean, camOnly: boolean) => void;
   isLocating?: boolean;
   locationMessage?: string | null;
 };
@@ -43,6 +45,7 @@ export default function StoreFilters({
   initialCity,
   initialArea,
   initialAtmOnly,
+  initialCamOnly,
   allStores,
   provinceOptions,
   onSearch,
@@ -55,6 +58,7 @@ export default function StoreFilters({
   const [city, setCity] = useState(initialCity);
   const [area, setArea] = useState(initialArea);
   const [atmOnly, setAtmOnly] = useState(initialAtmOnly);
+  const [camOnly, setCamOnly] = useState(initialCamOnly);
 
   const cityOptions = useMemo(() => {
     const filteredCities = province
@@ -70,7 +74,7 @@ export default function StoreFilters({
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSearch({ province, city, area, atmOnly });
+        onSearch({ province, city, area, atmOnly, camOnly });
       }}
       className="space-y-3 p-4"
     >
@@ -82,7 +86,7 @@ export default function StoreFilters({
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => onUseMyLocation(atmOnly)}
+            onClick={() => onUseMyLocation(atmOnly, camOnly)}
             disabled={isLocating}
             className="cursor-pointer text-[12px] font-medium text-[#112768] disabled:cursor-not-allowed disabled:opacity-60"
           >
@@ -96,6 +100,7 @@ export default function StoreFilters({
               setCity("");
               setArea("");
               setAtmOnly(false);
+              setCamOnly(false);
               onClear();
             }}
             className="cursor-pointer text-[12px] font-medium text-[#b30000]"
@@ -173,6 +178,26 @@ export default function StoreFilters({
               city,
               area,
               atmOnly: checked,
+              camOnly,
+            });
+          }}
+        />
+      </div>
+
+      <div className="flex items-center justify-between rounded-full bg-[#efefef] px-3 py-2">
+        <p className="text-[13px] font-medium text-[#112768]">
+          Branches with Cash Acceptor Machine services
+        </p>
+        <Switch
+          checked={camOnly}
+          onCheckedChange={(checked) => {
+            setCamOnly(checked);
+            onSearch({
+              province,
+              city,
+              area,
+              atmOnly,
+              camOnly: checked,
             });
           }}
         />
