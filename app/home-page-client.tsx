@@ -36,6 +36,7 @@ export default function HomePageClient() {
   const [error, setError] = useState<string | null>(null);
   const [isLocating, setIsLocating] = useState(false);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -72,7 +73,7 @@ export default function HomePageClient() {
     };
 
     fetchStores();
-  }, [queryString]);
+  }, [queryString, refreshKey]);
 
   useEffect(() => {
     const fetchAllStores = async () => {
@@ -97,6 +98,18 @@ export default function HomePageClient() {
     };
 
     fetchAllStores();
+  }, [refreshKey]);
+
+  useEffect(() => {
+    const refreshWhenLocatorIsReopened = () => {
+      setRefreshKey((current) => current + 1);
+    };
+
+    window.addEventListener("focus", refreshWhenLocatorIsReopened);
+
+    return () => {
+      window.removeEventListener("focus", refreshWhenLocatorIsReopened);
+    };
   }, []);
 
   const provinceOptions = useMemo(() => {

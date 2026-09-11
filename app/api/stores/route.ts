@@ -127,7 +127,12 @@ export async function GET(request: NextRequest) {
         count: stores.length,
         stores,
       },
-      { status: 200 },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "no-store, max-age=0",
+        },
+      },
     );
   } catch (error) {
     console.error("GET /api/stores error:", error);
