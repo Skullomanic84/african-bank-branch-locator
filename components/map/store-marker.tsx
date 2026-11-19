@@ -1,25 +1,30 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import type mapboxgl from "mapbox-gl";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { MdPersonPin } from "react-icons/md";
 
 export const STORE_PIN_IMAGE_ID = "store-map-pin";
 
-// Rendered at 2x and registered with pixelRatio 2, so it displays at 24x32.
-const PIN_WIDTH = 48;
-const PIN_HEIGHT = 64;
+// Rendered at 2x and registered with pixelRatio 2, so it displays at 30x33.
+const PIN_WIDTH = 66;
+const PIN_HEIGHT = 66;
+
+// Material icons start with an invisible 24x24 bounding-box path. It would
+// pick up the outline stroke and draw a square around the pin, so drop it.
+const BOUNDING_BOX_PATH = '<path fill="none" d="M0 0h24v24H0z"></path>';
 
 function getStorePinSvg() {
   return renderToStaticMarkup(
-    <FaMapMarkerAlt
+    <MdPersonPin
       color="#5dc300"
       stroke="#112768"
-      strokeWidth={24}
-      // Pad the icon's 384x512 viewBox so the outline isn't clipped.
-      viewBox="-16 -16 416 544"
+      strokeWidth={0.5}
+      // Crop to the pin shape (x 3-21, y 2-22) plus room for the outline,
+      // so the tip sits on the bottom edge where the icon is anchored.
+      viewBox="2 1 20 22"
       width={PIN_WIDTH}
       height={PIN_HEIGHT}
     />,
-  );
+  ).replace(BOUNDING_BOX_PATH, "");
 }
 
 export function loadStorePinImage(map: mapboxgl.Map): Promise<void> {
