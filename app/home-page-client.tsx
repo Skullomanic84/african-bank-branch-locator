@@ -39,6 +39,11 @@ export default function HomePageClient() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
+    // Requests can resolve out of order (e.g. a slow cold-start request for
+    // the unfiltered list finishing after a filtered one), so abort the
+    // previous request whenever the filters change and ignore its result.
+    const controller = new AbortController();
+
     const fetchStores = async () => {
       try {
         setIsLoading(true);
@@ -49,18 +54,23 @@ export default function HomePageClient() {
         const response = await fetch(url, {
           method: "GET",
           cache: "no-store",
+          signal: controller.signal,
         });
 
         const data: StoresApiResponse = await response.json();
-
-        console.log("Filtered stores API response:", data);
 
         if (!response.ok || !data.success) {
           throw new Error(data.message || "Failed to load stores");
         }
 
-        setStores(data.stores);
+        if (!controller.signal.aborted) {
+          setStores(data.stores);
+        }
       } catch (err) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
         console.error("Failed to fetch filtered stores:", err);
         setError(
           err instanceof Error
@@ -68,36 +78,51 @@ export default function HomePageClient() {
             : "Something went wrong loading stores",
         );
       } finally {
-        setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchStores();
+
+    return () => {
+      controller.abort();
+    };
   }, [queryString, refreshKey]);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchAllStores = async () => {
       try {
         const response = await fetch("/api/stores", {
           method: "GET",
           cache: "no-store",
+          signal: controller.signal,
         });
 
         const data: StoresApiResponse = await response.json();
-
-        console.log("All stores for filter options:", data);
 
         if (!response.ok || !data.success) {
           throw new Error(data.message || "Failed to load filter options");
         }
 
-        setAllStores(data.stores);
+        if (!controller.signal.aborted) {
+          setAllStores(data.stores);
+        }
       } catch (err) {
-        console.error("Failed to fetch all stores:", err);
+        if (!controller.signal.aborted) {
+          console.error("Failed to fetch all stores:", err);
+        }
       }
     };
 
     fetchAllStores();
+
+    return () => {
+      controller.abort();
+    };
   }, [refreshKey]);
 
   useEffect(() => {

@@ -5,6 +5,10 @@ import mapboxgl from "mapbox-gl";
 
 import type { Store } from "@/types/store";
 import {
+  loadStorePinImage,
+  STORE_PIN_IMAGE_ID,
+} from "@/components/map/store-marker";
+import {
   getMapboxAccessToken,
   SOUTH_AFRICA_CENTER,
   SOUTH_AFRICA_ZOOM,
@@ -19,7 +23,6 @@ const STORES_SOURCE_ID = "stores-source";
 const CLUSTERS_LAYER_ID = "clusters";
 const CLUSTER_COUNT_LAYER_ID = "cluster-count";
 const UNCLUSTERED_LAYER_ID = "unclustered-point";
-const MAP_PIN_IMAGE_ID = "store-map-pin";
 
 const SOUTH_AFRICA_LNG_MIN = 16;
 const SOUTH_AFRICA_LNG_MAX = 33;
@@ -235,36 +238,30 @@ export default function StoreMap({ stores, isLoading = false }: StoreMapProps) {
         bindUnclusteredLayerInteractions();
       };
 
-      map.loadImage("/location.png", (error, image) => {
-        if (error || !image) {
+      loadStorePinImage(map)
+        .then(() => {
+          if (!map.getLayer(UNCLUSTERED_LAYER_ID)) {
+            map.addLayer({
+              id: UNCLUSTERED_LAYER_ID,
+              type: "symbol",
+              source: STORES_SOURCE_ID,
+              filter: ["!", ["has", "point_count"]],
+              layout: {
+                "icon-image": STORE_PIN_IMAGE_ID,
+                "icon-size": 1,
+                "icon-anchor": "bottom",
+                "icon-allow-overlap": true,
+                "icon-ignore-placement": true,
+              },
+            });
+          }
+
+          bindUnclusteredLayerInteractions();
+        })
+        .catch((error) => {
           console.error("Failed to load map pin icon:", error);
           addUnclusteredFallbackLayer();
-          return;
-        }
-
-        if (!map.hasImage(MAP_PIN_IMAGE_ID)) {
-          map.addImage(MAP_PIN_IMAGE_ID, image, { pixelRatio: 2 });
-        }
-
-        if (!map.getLayer(UNCLUSTERED_LAYER_ID)) {
-          map.addLayer({
-            id: UNCLUSTERED_LAYER_ID,
-            type: "symbol",
-            source: STORES_SOURCE_ID,
-            filter: ["!", ["has", "point_count"]],
-            layout: {
-              "icon-image": MAP_PIN_IMAGE_ID,
-              "icon-size": 0.8,
-              "icon-anchor": "bottom",
-              "icon-offset": [0, -10],
-              "icon-allow-overlap": true,
-              "icon-ignore-placement": true,
-            },
-          });
-        }
-
-        bindUnclusteredLayerInteractions();
-      });
+        });
 
       map.on("click", CLUSTERS_LAYER_ID, (event) => {
         const features = map.queryRenderedFeatures(event.point, {
